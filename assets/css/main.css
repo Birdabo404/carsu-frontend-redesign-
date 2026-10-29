@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f5f2ea;
+  --color-paper-2: #ece7dc;
+  --color-navy: #13213c;
+  --color-navy-2: #2b3a5c;
+  --color-slate: #5b6478;
+  --color-line: #d9d4c9;
+  --color-gold: #f9dc07;
+  --color-orange: #ff9900;
+  --color-rust: #a35600;
+
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --text-label: 12px;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.08em;
+  --text-lede: 20px;
+  --text-lede--line-height: 1.5;
+  --text-h3: clamp(24px, 2.4vw, 32px);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.015em;
+  --text-h2: clamp(36px, 4.4vw, 56px);
+  --text-h2--line-height: 1.02;
+  --text-h2--letter-spacing: -0.035em;
+  --text-h1: clamp(48px, 5.4vw, 80px);
+  --text-h1--line-height: 0.94;
+  --text-h1--letter-spacing: -0.045em;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@utility gutter {
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+}
+
+@utility pixelated {
+  image-rendering: pixelated;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-navy);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    scroll-padding-top: 64px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-navy);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 3px;
+  }
+}
+
+/* Pre-hydration hidden states; GSAP brings these in. Only applied when JS enabled motion. */
+.motion [data-hero-fade],
+.motion [data-hero-cell],
+.motion [data-hero-photo] {
+  visibility: hidden;
+}
+.motion [data-hero-line] > span {
+  transform: translateY(110%);
+}
+.motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
